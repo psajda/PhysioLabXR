@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-thres = 0.45  # Threshold to detect object
+threshold = 0.45  # Threshold to detect object
 input_size = 320, 320
 nms_threshold = 0.2
 
@@ -25,12 +25,12 @@ net.setInputSwapRB(True)
 
 while True:
     success, img = cap.read()
-    classIds, confs, bbox = net.detect(img, confThreshold=thres)
+    classIds, confs, bbox = net.detect(img, confThreshold=threshold)
     bbox = list(bbox)
     confs = list(np.array(confs).reshape(1, -1)[0])
     confs = list(map(float, confs))
 
-    indices = cv2.dnn.NMSBoxes(bbox, confs, thres, nms_threshold)
+    indices = cv2.dnn.NMSBoxes(bbox, confs, threshold, nms_threshold)
 
     for i in indices:
         box = bbox[i]
